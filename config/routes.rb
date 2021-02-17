@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :admins
-      resources :rentalspaces do
+      resources :builds do
         resources :rooms, only: %i[index]
       end
       resources :pre_reserves, only: %i[index create]

@@ -13,7 +13,7 @@ User.create!(
 
 3.times do |n|
   build = Build.new(
-    name: "テストレンタルスペース[#{n}]",
+    name: "テストレンタルスペース[#{n-1}]",
     postal_code: "123-4567",
     address: "テスト県テスト市12-3",
     building: "テストビル",
