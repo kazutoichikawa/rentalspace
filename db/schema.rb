@@ -10,24 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_033155) do
+ActiveRecord::Schema.define(version: 2021_02_17_050257) do
 
-  create_table "pre_reserves", charset: "utf8", force: :cascade do |t|
-    t.integer "count", default: 0, null: false
-    t.boolean "active", default: false, null: false
-    t.bigint "room_id", null: false
-    t.bigint "rentalspace_id", null: false
-    t.bigint "reserve_id"
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["rentalspace_id"], name: "index_pre_reserves_on_rentalspace_id"
-    t.index ["reserve_id"], name: "index_pre_reserves_on_reserve_id"
-    t.index ["room_id"], name: "index_pre_reserves_on_room_id"
-    t.index ["user_id"], name: "index_pre_reserves_on_user_id"
-  end
-
-  create_table "rentalspaces", charset: "utf8", force: :cascade do |t|
+  create_table "builds", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
@@ -35,7 +20,22 @@ ActiveRecord::Schema.define(version: 2021_02_17_033155) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_rentalspaces_on_user_id"
+    t.index ["user_id"], name: "index_builds_on_user_id"
+  end
+
+  create_table "pre_reserves", charset: "utf8", force: :cascade do |t|
+    t.integer "count", default: 0, null: false
+    t.boolean "active", default: false, null: false
+    t.bigint "room_id", null: false
+    t.bigint "build_id", null: false
+    t.bigint "reserve_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["build_id"], name: "index_pre_reserves_on_build_id"
+    t.index ["reserve_id"], name: "index_pre_reserves_on_reserve_id"
+    t.index ["room_id"], name: "index_pre_reserves_on_room_id"
+    t.index ["user_id"], name: "index_pre_reserves_on_user_id"
   end
 
   create_table "reserves", charset: "utf8", force: :cascade do |t|
@@ -53,10 +53,10 @@ ActiveRecord::Schema.define(version: 2021_02_17_033155) do
     t.text "detail", null: false
     t.integer "capacity", null: false
     t.integer "price", null: false
-    t.bigint "rentalspace_id", null: false
+    t.bigint "build_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["rentalspace_id"], name: "index_rooms_on_rentalspace_id"
+    t.index ["build_id"], name: "index_rooms_on_build_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -78,12 +78,12 @@ ActiveRecord::Schema.define(version: 2021_02_17_033155) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "pre_reserves", "rentalspaces"
+  add_foreign_key "builds", "users"
+  add_foreign_key "pre_reserves", "builds"
   add_foreign_key "pre_reserves", "reserves", column: "reserve_id"
   add_foreign_key "pre_reserves", "rooms"
   add_foreign_key "pre_reserves", "users"
-  add_foreign_key "rentalspaces", "users"
   add_foreign_key "reserves", "rooms"
   add_foreign_key "reserves", "users"
-  add_foreign_key "rooms", "rentalspaces"
+  add_foreign_key "rooms", "builds"
 end
