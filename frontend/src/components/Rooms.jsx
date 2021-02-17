@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import { fetchRooms } from '../apis/rooms';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ import {
 import { REQUEST_STATE } from '../constants';
 import { RoomWrapper } from './RoomWrapper';
 import Skeleton from '@material-ui/lab/Skeleton';
+
+import { RoomReserveDialog } from '../components/RoomReserveDialog';
 
 import { COLORS } from '../style_constants';
 import { LocalMallIcon } from '../Icons';
@@ -50,6 +52,13 @@ export const Rooms = ({
   match
 }) => {
   const [roomsState, dispatch] = useReducer(roomsReducer, roomsInitialState);
+  const initialState = {
+    isOpenReserveDialog: false,
+    selectedRoom: null,
+    selectedTimeCount: 1,
+}
+const [state, setState] = useState(initialState);
+
   useEffect(() => {
     dispatch({ type: roomsActionTyps.FETCHING });
     fetchRooms(match.params.buildsId)
@@ -91,13 +100,30 @@ export const Rooms = ({
               <ItemWrapper key={room.id}>
                 <RoomWrapper
                   room={room}
-                  onClickRoomWrapper={(room) => console.log(room)}
+                  onClickRoomWrapper={
+                    (room) =>setState({
+                      ...state,
+                      isOpenReserveDialog:true,
+                      selectedRoom:room,
+                    })
+                  }
                   imageUrl={RoomImage}
                 />
               </ItemWrapper>
             )
         }
       </RoomsList>
+      {
+        state.isOpenReserveDialog &&
+          <RoomReserveDialog
+            room={state.selectedRoom}
+            isOpen={state.isOpenReserveDialog}
+            onClose={() => setState({
+              ...state,
+              isOpenReserveDialog: false,
+            })}
+          />
+      }
     </Fragment>
   )
   }
