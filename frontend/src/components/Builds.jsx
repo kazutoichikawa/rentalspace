@@ -92,7 +92,7 @@ export const Builds = () => {
             </Fragment>
           :
             state.buildsList.map((build, index) =>
-              <Link to={`/builds/${build.id}/foods`} key={index} style={{ textDecoration: 'none' }}>
+              <Link to={`/builds/${build.id}/rooms`} key={index} style={{ textDecoration: 'none' }}>
                 <BuildsContentWrapper>
                   <BuildsImageNode src={RoomImage} />
                   <MainText>{build.name}</MainText>
