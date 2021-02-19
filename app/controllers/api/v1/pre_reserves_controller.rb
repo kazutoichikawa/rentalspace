@@ -21,7 +21,7 @@ module Api
         if PreReserve.active.other_build(@reserved_room.build.id).exists?
           return render json: {
             existing_build: PreReserve.other_build(@reserved_room.build.id).first.build.name,
-            new_build: room.find(params[:room_id]).build.name,
+            new_build: Room.find(params[:room_id]).build.name,
           }, status: :not_acceptable
         end
 
@@ -30,7 +30,7 @@ module Api
             pre_reserve.update_attribute(:active, false)
         end
   
-          set_pre_reserve(@oreserved_room)
+          set_pre_reserve(@reserved_room)
   
           if @pre_reserve.save
             render json: {
@@ -41,11 +41,11 @@ module Api
           end
         end
 
-        set_line_room(@reserved_room)
+        set_pre_reserve(@reserved_room)
 
-        if @line_room.save
+        if @pre_reserve.save
           render json: {
-            line_room: @line_room
+            pre_reserve: @pre_reserve
           }, status: :created
         else
           render json: {}, status: :internal_server_error
@@ -55,18 +55,18 @@ module Api
       private
 
       def set_room
-        @reserved_room = room.find(params[:room_id])
+        @reserved_room = Room.find(params[:room_id])
       end
 
-      def set_line_room(reserved_room)
-        if reserved_room.line_room.present?
-          @line_room = reserved_room.line_room
-          @line_room.attributes = {
-            count: reserved_room.line_room.count + params[:count],
+      def set_pre_reserve(reserved_room)
+        if reserved_room.pre_reserve.present?
+          @pre_reserve = reserved_room.pre_reserve
+          @pre_reserve.attributes = {
+            count: reserved_room.pre_reserve.count + params[:count],
             active: true
           }
         else
-          @line_room = reserved_room.build_line_room(
+          @pre_reserve = reserved_room.build_pre_reserve(
             count: params[:count],
             build: reserved_room.build,
             active: true

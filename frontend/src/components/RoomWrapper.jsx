@@ -20,10 +20,6 @@ const RoomDetail = styled.div`
   width: 250px;
 `;
 
-const DescriptionWrapper = styled.div`
-  height: 75px;
-`
-
 const PriceWrapper = styled.div`
   margin-top: 16px;
 `

@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_050257) do
   end
 
   create_table "pre_reserves", charset: "utf8", force: :cascade do |t|
-    t.datetime "datetime", null: false
+    t.datetime "datetime"
     t.integer "count", default: 0, null: false
     t.boolean "active", default: false, null: false
     t.bigint "room_id", null: false
