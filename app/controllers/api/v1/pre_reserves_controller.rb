@@ -63,11 +63,13 @@ module Api
           @pre_reserve = reserved_room.pre_reserve
           @pre_reserve.attributes = {
             count: reserved_room.pre_reserve.count + params[:count],
+            datetime: reserved_room.pre_reserve.datetime,
             active: true
           }
         else
           @pre_reserve = reserved_room.build_pre_reserve(
             count: params[:count],
+            datetime: params[:datetime],
             build: reserved_room.build,
             active: true
           )

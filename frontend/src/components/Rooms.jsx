@@ -60,6 +60,7 @@ export const Rooms = ({
     isOpenReserveDialog: false,
     selectedRoom: null,
     selectedTimeCount: 1,
+    selectedDatetime: Date.today,
     isOpenNewReserveDialog: false,
     existingBuildName: '',
     newBuildName: '',
@@ -78,10 +79,10 @@ const [state, setState] = useState(initialState);
       })
   }, [])
   const submitReserve = () => {
-    console.log('登録ボタンが押された！')
     postPreReserve({
       roomId: state.selectedRoom.id,
       count: state.selectedTimeCount,
+      datetime: state.selectedDatetime,
     }).then(() => history.push('/reserves'))
     .catch((e) => {
       if(e.response.status === HTTP_STATUS_CODE.NOT_ACCEPTABLE){
@@ -102,6 +103,7 @@ const replaceReserve = () => {
   replacePreReserve({
     roomId: state.selectedRoom.id,
     count: state.selectedTimeCount,
+    datetime: state.selectedDatetime,
   }).then(() => history.push('/reserves'))
 };
   return (
@@ -152,10 +154,8 @@ const replaceReserve = () => {
             room={state.selectedRoom}
             isOpen={state.isOpenReserveDialog}
             countNumber={state.selectedTimeCount}
-            onClickCountUp={() => setState({
-              ...state,
-              selectedTimeCount: state.selectedTimeCount + 1,
-            })}
+            selectedDatetime={state.selectedDatetime}
+
             onClickCountUp={() => setState({
               ...state,
               selectedTimeCount: state.selectedTimeCount + 1,
@@ -164,11 +164,16 @@ const replaceReserve = () => {
               ...state,
               selectedTimeCount: state.selectedTimeCount - 1,
             })}
+            handleDateChange={() => setState({
+              ...state,
+              selectedDatetime: state.selectedDatetime
+            })}
             onClickReserve={() => submitReserve()}
             onClose={() => setState({
               ...state,
               isOpenReserveDialog: false,
               selectedRoom: null,
+              selectedDatetime: Date.today,
               selectedTimeCount: 1,
             })}
           />

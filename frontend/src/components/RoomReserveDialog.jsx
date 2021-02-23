@@ -6,15 +6,20 @@ import { CountUpButton } from './Buttons/CountUpButton';
 import { CountDownButton } from './Buttons/CountDownButton';
 import { ReserveButton } from './Buttons/ReserveButton';
 import ReserveHeaderImage from '../images/reserve-header.png';
+import DateTimePickers from './Forms/DateTimePickers';
 
 const ReserveHeader = styled.img`
   width: 100%;
-  height: 300px;
+  height: 240px;
 `;
 
 const DetailWrapper = styled.div`
-  padding: 0 8px 8px 8px;
-  height: 50px;
+  padding: 0px 0px 8px 8px;
+  height: 60px;
+`;
+
+const SubTextWrapper = styled.div`
+  display: flex;
 `;
 
 const CountersWrapper = styled.div`
@@ -39,12 +44,8 @@ const ReserveTextWrapper = styled.div`
   display: flex;
 `;
 
-const ReserveFormWrapper = styled.div`
+const DateTimePickersWrapper = styled.div`
   margin: 0px 0 10px 10px ;
-`
-
-const ReserveForm = styled.div`
-
 `
 
 const ReserveButtonTextWrapper = styled.div`
@@ -60,6 +61,7 @@ export const RoomReserveDialog = ({
   isOpen,
   onClose,
   countNumber,
+  selectedDatetime,
   onClickCountUp,
   onClickCountDown,
   onClickReserve,
@@ -75,18 +77,21 @@ export const RoomReserveDialog = ({
       </DialogTitle>
       <DialogContent>
         <DetailWrapper>
+        <SubTextWrapper>
+            <SubText>最大収容人数：{room.capacity}人</SubText>
+            <SubText>60分/ {room.price}円</SubText>
+          </SubTextWrapper>
           <SubText>{room.detail}</SubText>
-          <SubText>最大収容人数：{room.capacity}人</SubText>
-          <SubText>60分/ {room.price}円</SubText>
         </DetailWrapper>
       </DialogContent>
+      <DateTimePickersWrapper>
+        <DateTimePickers
+        />
+      </DateTimePickersWrapper>
+      
       <DialogActions>
-      <CountersWrapper>
-        <ReserveFormWrapper>
-          <ReserveForm>
-            予約フォーム
-          </ReserveForm>
-        </ReserveFormWrapper>
+          
+        <CountersWrapper>
         <CountTimeWrapper>
           <CountTime>
             <CountDownButton

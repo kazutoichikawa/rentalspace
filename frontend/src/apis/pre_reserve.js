@@ -6,6 +6,7 @@ export const postPreReserve =(params) => {
     {
       room_id: params.roomId,
       count: params.count,
+      datetime: params.datetime,
     }
   )
   .then(res => {
@@ -19,6 +20,7 @@ export const replacePreReserve = (params) => {
     {
       room_id: params.roomId,
       count: params.count,
+      datetime: params.datetime,
     }
   )
   .then(res => {
