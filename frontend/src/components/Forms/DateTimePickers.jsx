@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -14,18 +14,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DateTimePickers = () => {
+const DateTimePickers = (props) => {
   const classes = useStyles();
-  const [selectedDatetime, handleDateChange] = useState(Date.today);
-
+  const [selectedDatetime, setSelectedDatetime] = useState(Date.today);
   return (
     <form>
       <TextField
         id="datetime-local"
         type="datetime-local"
-        value={selectedDatetime}
-        onChange={e => handleDateChange(e.target.value)}
+        onChange={props.onChange}
         className={classes.textField}
+        value={selectedDatetime}
       />
       </form>
   );

@@ -154,7 +154,7 @@ const replaceReserve = () => {
             room={state.selectedRoom}
             isOpen={state.isOpenReserveDialog}
             countNumber={state.selectedTimeCount}
-            selectedDatetime={state.selectedDatetime}
+            
 
             onClickCountUp={() => setState({
               ...state,
@@ -164,10 +164,7 @@ const replaceReserve = () => {
               ...state,
               selectedTimeCount: state.selectedTimeCount - 1,
             })}
-            handleDateChange={() => setState({
-              ...state,
-              selectedDatetime: state.selectedDatetime
-            })}
+            
             onClickReserve={() => submitReserve()}
             onClose={() => setState({
               ...state,

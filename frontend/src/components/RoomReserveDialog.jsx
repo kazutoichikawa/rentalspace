@@ -61,7 +61,7 @@ export const RoomReserveDialog = ({
   isOpen,
   onClose,
   countNumber,
-  selectedDatetime,
+  onChange,
   onClickCountUp,
   onClickCountDown,
   onClickReserve,
@@ -86,6 +86,8 @@ export const RoomReserveDialog = ({
       </DialogContent>
       <DateTimePickersWrapper>
         <DateTimePickers
+        onChange={onChange}
+        
         />
       </DateTimePickersWrapper>
       
