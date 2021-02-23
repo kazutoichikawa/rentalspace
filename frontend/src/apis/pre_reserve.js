@@ -28,3 +28,11 @@ export const replacePreReserve = (params) => {
   })
   .catch((e) => { throw e; })
 };
+
+export const fetchPreReserves = () => {
+  return axios.get(PreReserve)
+  .then(res => {
+    return res.data
+  })
+  .catch((e) => { throw e; })
+};
