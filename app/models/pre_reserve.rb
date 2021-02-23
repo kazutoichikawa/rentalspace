@@ -6,7 +6,7 @@ class PreReserve < ApplicationRecord
   validates :count, numericality: { greater_than: 0 }
 
   scope :active, -> { where(active: true) }
-  scope :other_build, -> (picked_build_id) { where.not(build_id: picked_restaurant_id) }
+  scope :other_build, -> (picked_build_id) { where.not(build_id: picked_build_id) }
 
   def total_amount
     room.price * count

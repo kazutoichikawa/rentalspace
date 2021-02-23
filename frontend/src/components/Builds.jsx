@@ -34,6 +34,7 @@ const MainCover = styled.img`
   height: 250px;
 `;
 const BuildsContentsList = styled.div`
+  overflow-x: auto;
   display: flex;
   justify-content: space-around;
   margin-bottom: 150px;
@@ -51,7 +52,7 @@ const BuildsImageNode = styled.img`
 
 const MainText = styled.p`
   color: black;
-  font-size: 18px;
+  font-size: 20px;
 `;
 
 const SubText = styled.p`
@@ -96,7 +97,8 @@ export const Builds = () => {
                 <BuildsContentWrapper>
                   <BuildsImageNode src={RoomImage} />
                   <MainText>{build.name}</MainText>
-                  <SubText>{`所在地：${build.postal_code} ${build.address} ${build.building}`}</SubText>
+                  <SubText>{`所在地：${build.postal_code}`}</SubText> 
+                  <SubText>{`${build.address} ${build.building}`}</SubText>
                 </BuildsContentWrapper>
               </Link>
             )
